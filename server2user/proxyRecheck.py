@@ -97,7 +97,7 @@ class ProxyRecheck():
 
         # 提高log可读性
         proxyCount = 0
-        proxyNums = len(valid)
+        proxyNums = len(temp)
 
         for new in temp:
 
@@ -136,10 +136,10 @@ class ProxyRecheck():
         unvalid = self.db.list_get("unvalid")
 
         logout("proxyRecheck", "当次新增完成")
-        logout("proxyRecheck", f"输入valid个数:{len(valid)}")
-        logout("proxyRecheck", f"输入valid:{valid}")
-        logout("proxyRecheck", f"输入unvalid个数:{len(unvalid)}")
-        logout("proxyRecheck", f"输入unvalid:{unvalid}")
+        logout("proxyRecheck", f"输出valid个数:{len(valid)}")
+        logout("proxyRecheck", f"输出valid:{valid}")
+        logout("proxyRecheck", f"输出unvalid个数:{len(unvalid)}")
+        logout("proxyRecheck", f"输出unvalid:{unvalid}")
         logout("proxyRecheck", "="*30)
 
     def checkproxy(self):
@@ -213,10 +213,10 @@ class ProxyRecheck():
         valid = self.db.list_get("valid")
         unvalid = self.db.list_get("unvalid")
         logout("proxyRecheck", "当次巡检完成")
-        logout("proxyRecheck", f"输入valid个数:{len(valid)}")
-        logout("proxyRecheck", f"输入valid:{valid}")
-        logout("proxyRecheck", f"输入unvalid个数:{len(unvalid)}")
-        logout("proxyRecheck", f"输入unvalid:{unvalid}")
+        logout("proxyRecheck", f"输出valid个数:{len(valid)}")
+        logout("proxyRecheck", f"输出valid:{valid}")
+        logout("proxyRecheck", f"输出unvalid个数:{len(unvalid)}")
+        logout("proxyRecheck", f"输出unvalid:{unvalid}")
         logout("proxyRecheck", "="*30)
 
     def deletevalidproxy(self):
@@ -307,8 +307,8 @@ class ProxyRecheck():
         # 返回处理后的结果
         unvalid = self.db.list_get("unvalid")
         logout("proxyRecheck", "移除不可用代理完成")
-        logout("proxyRecheck", f"输入unvalid个数:{len(unvalid)}")
-        logout("proxyRecheck", f"输入unvalid:{unvalid}")
+        logout("proxyRecheck", f"输出unvalid个数:{len(unvalid)}")
+        logout("proxyRecheck", f"输出unvalid:{unvalid}")
         logout("proxyRecheck", "=" * 30)
 
     def run(self):
