@@ -20,6 +20,7 @@ from handler.logHandler import LogHandler
 from helper.validator import ProxyValidator
 from handler.proxyHandler import ProxyHandler
 from handler.configHandler import ConfigHandler
+from server2user.logout import logout
 
 
 class DoValidator(object):
@@ -100,7 +101,9 @@ class _ThreadChecker(Thread):
 
     def __ifRaw(self, proxy):
         if proxy:
-            self.proxy_handler.put(proxy)
+            logout("check", f"当前存入数据库的代理数据信息--数据类型：{type(proxy)}--数据本身：{proxy}")
+            # 20220511 数据通过proxyFetch.py直接插入数据库
+            # self.proxy_handler.put(proxy)
 
     #     if proxy.last_status:
     #         if self.proxy_handler.exists(proxy):
