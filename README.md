@@ -1,34 +1,9 @@
 
-ProxyPool 爬虫代理IP池
-=======
-[![Build Status](https://travis-ci.org/jhao104/proxy_pool.svg?branch=master)](https://travis-ci.org/jhao104/proxy_pool)
-[![](https://img.shields.io/badge/Powered%20by-@j_hao104-green.svg)](http://www.spiderpy.cn/blog/)
-[![Requirements Status](https://requires.io/github/jhao104/proxy_pool/requirements.svg?branch=master)](https://requires.io/github/jhao104/proxy_pool/requirements/?branch=master)
-[![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg)](https://github.com/jhao104/proxy_pool/blob/master/LICENSE)
-[![GitHub contributors](https://img.shields.io/github/contributors/jhao104/proxy_pool.svg)](https://github.com/jhao104/proxy_pool/graphs/contributors)
-[![](https://img.shields.io/badge/language-Python-green.svg)](https://github.com/jhao104/proxy_pool)
+
 
     ______                        ______             _
     | ___ \_                      | ___ \           | |
     | |_/ / \__ __   __  _ __   _ | |_/ /___   ___  | |
-    |  __/|  _// _ \ \ \/ /| | | ||  __// _ \ / _ \ | |
-    | |   | | | (_) | >  < \ |_| || |  | (_) | (_) || |___
-    \_|   |_|  \___/ /_/\_\ \__  |\_|   \___/ \___/ \_____\
-                           __ / /
-                          /___ /
-
-### ProxyPool
-
-爬虫代理IP池项目,主要功能为定时采集网上发布的免费代理验证入库，定时验证入库的代理保证代理的可用性，提供API和CLI两种使用方式。同时你也可以扩展代理源以增加代理池IP的质量和数量。
-
-* 文档: [document](https://proxy-pool.readthedocs.io/zh/latest/) [![Documentation Status](https://readthedocs.org/projects/proxy-pool/badge/?version=latest)](https://proxy-pool.readthedocs.io/zh/latest/?badge=latest)
-
-* 支持版本: ![](https://img.shields.io/badge/Python-2.x-green.svg) ![](https://img.shields.io/badge/Python-3.x-blue.svg)
-
-* 测试地址: http://demo.spiderpy.cn (勿压谢谢)
-
-* 付费代理推荐: [luminati-china](https://brightdata.grsm.io/proxyPool). 国外的亮数据BrightData（以前叫luminati）被认为是代理市场领导者，覆盖全球的7200万IP，大部分是真人住宅IP，成功率扛扛的。付费套餐多种，需要高质量代理IP的可以注册后联系中文客服，开通后有5美金赠送和教程指引(PS:用不明白的同学可以参考这个[使用教程](https://www.cnblogs.com/jhao/p/15611785.html))。
-
 
 ### 运行项目
 
@@ -189,32 +164,6 @@ PROXY_FETCHER = [
 
 
 　　`schedule` 进程会每隔一段时间抓取一次代理，下次抓取时会自动识别调用你定义的方法。
-
-### 免费代理源
-
-   目前实现的采集免费代理网站有(排名不分先后, 下面仅是对其发布的免费代理情况, 付费代理测评可以参考[这里](https://zhuanlan.zhihu.com/p/33576641)): 
-   
-  |   代理名称   |  状态  |  更新速度 |  可用率  |  地址 |    代码   |
-  | ---------   |  ---- | --------  | ------  | ----- |   ------- |
-  | 米扑代理     |  ✔    |     ★     |   *     | [地址](https://proxy.mimvp.com/)    | [`freeProxy01`](/fetcher/proxyFetcher.py#L27) |
-  | 66代理      |   ✔   |     ★★    |   *     | [地址](http://www.66ip.cn/)         | [`freeProxy02`](/fetcher/proxyFetcher.py#L52) |
-  | 开心代理     |   ✔   |     ★     |   *     | [地址](http://www.kxdaili.com/)     | [`freeProxy03`](/fetcher/proxyFetcher.py#L65)  |
-  | 蝶鸟IP      |   ✔   |     ★     |   *     | [地址](https://www.dieniao.com/)     | [`freeProxy04`](/fetcher/proxyFetcher.py#L76) |
-  | 快代理       |  ✔    |     ☆     |   *     | [地址](https://www.kuaidaili.com/)  | [`freeProxy05`](/fetcher/proxyFetcher.py#L86)  |
-  | PROXY11     |  ✔    |    ★      |   *     | [地址](https://proxy11.com/)        | [`freeProxy06`](/fetcher/proxyFetcher.py#L105) |
-  | 云代理       |  ✔    |     ★     |   *     | [地址](http://www.ip3366.net/)      | [`freeProxy07`](/fetcher/proxyFetcher.py#L116) |
-  | 小幻代理     |  ✔    |     ★★    |    *    | [地址](https://ip.ihuan.me/)        | [`freeProxy08`](/fetcher/proxyFetcher.py#L126) |
-  | 免费代理库   |  ✔    |      ☆     |    *    | [地址](http://ip.jiangxianli.com/)   | [`freeProxy09`](/fetcher/proxyFetcher.py#L136) |
-  | 89代理      |  ✔    |      ☆     |   *     | [地址](https://www.89ip.cn/)         | [`freeProxy10`](/fetcher/proxyFetcher.py#L147) |
-
-  
-  如果还有其他好的免费代理网站, 可以在提交在[issues](https://github.com/jhao104/proxy_pool/issues/71), 下次更新时会考虑在项目中支持。
-
-### 问题反馈
-
-　　任何问题欢迎在[Issues](https://github.com/jhao104/proxy_pool/issues) 中反馈，同时也可以到我的[博客](http://www.spiderpy.cn/blog/message)中留言。
-
-　　你的反馈会让此项目变得更加完美。
 
 ### 贡献代码
 
