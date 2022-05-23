@@ -130,7 +130,7 @@ class ProxyFetcher(object):
                         logout("proxyFetcher", f"--error-可用代理数据:{type(proxy.proxy)}-{proxy.proxy}-{type(proxy.to_json)}-{proxy.to_json}--直插数据发生错误：{e}--")
 
                     # 用途2：返回给服务框架
-                    yield UseProxy
+                    # yield UseProxy
 
                 # 代理过滤2:只获取Vmess代理
                 elif proxy['type'] == 'ss':
@@ -178,7 +178,7 @@ class ProxyFetcher(object):
                         logout("proxyFetcher", f"--error-可用代理数据:{type(proxy.proxy)}-{proxy.proxy}-{type(proxy.to_json)}-{proxy.to_json}--直插数据发生错误：{e}--")
 
                     # 用途2：返回给服务框架
-                    yield UseProxy
+                    # yield UseProxy
 
                 # 过滤其他类型代理
                 else:

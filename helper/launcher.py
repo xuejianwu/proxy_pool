@@ -63,3 +63,29 @@ def __checkDBConfig():
     log.info("DB_USER: %s" % db.db_user)
     log.info("=================================================")
     return db.test()
+
+# 采用简单的循环启动
+def startServer2():
+    __beforeStart()
+    from api.proxyApi import runFlask
+    runFlask()
+
+
+def startScheduler2():
+    __beforeStart()
+    from fetcher.proxyFetcher import ProxyFetcher
+    from setting import PROXY_FETCHER
+    from server2user.logout import logout
+    import time
+
+    fetcher = ProxyFetcher()
+    while True:
+        for func in PROXY_FETCHER:
+            try:
+                f = getattr(fetcher, func, None)
+                f()
+            except Exception as e:
+                logout("launcher", e)
+        time.sleep(120)
+
+

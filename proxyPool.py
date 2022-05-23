@@ -13,7 +13,7 @@
 __author__ = 'JHao'
 
 import click
-from helper.launcher import startServer, startScheduler
+from helper.launcher import startServer, startScheduler2
 from setting import BANNER, VERSION
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
@@ -29,7 +29,7 @@ def cli():
 def schedule():
     """ 启动调度程序 """
     click.echo(BANNER)
-    startScheduler()
+    startScheduler2()
 
 
 @cli.command(name="server")
