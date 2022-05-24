@@ -33,8 +33,8 @@ proxy_handler = ProxyHandler()
 
 # 启动代理管理器PM
 proxyMain = ProxyMain()
-proxyMain.recheck()
-logout("proxyApi", f"ProxyMain()启动成功，并开始巡检")
+# proxyMain.recheck()
+# logout("proxyApi", f"ProxyMain()启动成功，并开始巡检")
 
 
 class JsonResponse(Response):

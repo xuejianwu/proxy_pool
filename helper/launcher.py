@@ -64,13 +64,8 @@ def __checkDBConfig():
     log.info("=================================================")
     return db.test()
 
+
 # 采用简单的循环启动
-def startServer2():
-    __beforeStart()
-    from api.proxyApi import runFlask
-    runFlask()
-
-
 def startScheduler2():
     __beforeStart()
     from fetcher.proxyFetcher import ProxyFetcher
@@ -89,3 +84,8 @@ def startScheduler2():
         time.sleep(120)
 
 
+def startRecheck():
+    __beforeStart()
+    from server2user.proxyRecheck import ProxyRecheck
+    recheck = ProxyRecheck()
+    recheck.run()

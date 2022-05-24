@@ -13,7 +13,7 @@
 __author__ = 'JHao'
 
 import click
-from helper.launcher import startServer, startScheduler2
+from helper.launcher import startServer, startScheduler2, startRecheck
 from setting import BANNER, VERSION
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
@@ -37,6 +37,13 @@ def server():
     """ 启动api服务 """
     click.echo(BANNER)
     startServer()
+
+
+@cli.command(name="recheck")
+def recheck():
+    """ 启动proxy巡检服务 """
+    click.echo(BANNER)
+    startRecheck()
 
 
 if __name__ == '__main__':
