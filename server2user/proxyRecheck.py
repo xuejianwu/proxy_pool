@@ -324,9 +324,9 @@ class ProxyRecheck():
             try:
                 logout("proxyRecheck", "\n")
                 logout("proxyRecheck", f"valid-id-{id(valid)}--unvailid-id-{id(unvalid)}")
+                self.deletevalidproxy()
                 self.checkproxy()
                 self.getproxy()
-                self.deletevalidproxy()
                 time.sleep(120)
             except Exception as e:
                 logout("proxyRecheck", f"RECHECK模块错误{e}")

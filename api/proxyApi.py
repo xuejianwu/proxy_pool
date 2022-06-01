@@ -15,11 +15,12 @@
 """
 __author__ = 'JHao'
 
-import platform, threading
+import platform, json
 from werkzeug.wrappers import Response
 from flask import Flask, jsonify, request
 
 from util.six import iteritems
+from util.EnDecrpty import encrypt
 from helper.proxy import Proxy
 from handler.proxyHandler import ProxyHandler
 from handler.configHandler import ConfigHandler
@@ -58,29 +59,36 @@ api_list = [
 ]
 
 
-@app.route('/')
-def index():
-    return {'url': api_list}
+# @app.route('/')
+# def index():
+#     return {'url': api_list}
 
 
 @app.route('/get/')
 def get():
     https = request.args.get("type", "").lower() == 'https'
     proxy = proxy_handler.get(https)
-    return proxy.to_dict if proxy else {"code": 0, "src": "no proxy"}
+    return encrypt(json.dumps(proxy.to_dict)) if proxy else {"code": 0, "src": "no proxy"}
 
 
-@app.route('/pop/')
-def pop():
+@app.route('/get2clear/')
+def get2clear():
     https = request.args.get("type", "").lower() == 'https'
-    proxy = proxy_handler.pop(https)
+    proxy = proxy_handler.get(https)
     return proxy.to_dict if proxy else {"code": 0, "src": "no proxy"}
 
 
-@app.route('/refresh/')
-def refresh():
-    # TODO refresh会有守护程序定时执行，由api直接调用性能较差，暂不使用
-    return 'success'
+# @app.route('/pop/')
+# def pop():
+#     https = request.args.get("type", "").lower() == 'https'
+#     proxy = proxy_handler.pop(https)
+#     return proxy.to_dict if proxy else {"code": 0, "src": "no proxy"}
+
+
+# @app.route('/refresh/')
+# def refresh():
+#     # refresh会有守护程序定时执行，由api直接调用性能较差，暂不使用
+#     return 'success'
 
 
 @app.route('/all/')

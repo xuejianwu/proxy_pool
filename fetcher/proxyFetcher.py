@@ -190,10 +190,12 @@ class ProxyFetcher(object):
                 pass
 
     @staticmethod
-    def freeProxy02():
+    def freeProxy00():
         """
         vmess代理池
         """
+        logout("proxyFetcher", f"00程序启动")
+
         # 操作redis数据库对象
         proxy_handler = ProxyHandler()
 
@@ -203,8 +205,11 @@ class ProxyFetcher(object):
         proxyCount = 0
         proxyCount_successful = 0
 
+        # 启动日志
+        logout("proxyFetcher", f"采集初始化：proxyNums:{proxyNums}-proxyList:{proxyList}")
+
         for proxy in proxyList:
-            
+
             proxy = json.dumps(proxy)
 
             proxyCount += 1  # 代理计数器，提高log可读性
@@ -280,7 +285,7 @@ class ProxyFetcher(object):
                         logout("proxyFetcher", f"--error-可用代理数据:{type(proxy.proxy)}-{proxy.proxy}-{type(proxy.to_json)}-{proxy.to_json}--直插数据发生错误：{e}--")
 
                     # 用途2：返回给服务框架
-                    yield UseProxy
+                    # yield UseProxy
 
                 # 代理过滤2:只获取Vmess代理
                 elif proxy['type'] == 'ss':
@@ -328,7 +333,7 @@ class ProxyFetcher(object):
                         logout("proxyFetcher", f"--error-可用代理数据:{type(proxy.proxy)}-{proxy.proxy}-{type(proxy.to_json)}-{proxy.to_json}--直插数据发生错误：{e}--")
 
                     # 用途2：返回给服务框架
-                    yield UseProxy
+                    # yield UseProxy
 
                 # 过滤其他类型代理
                 else:

@@ -77,6 +77,7 @@ def startScheduler2():
     while True:
         for func in PROXY_FETCHER:
             try:
+                logout("launcher", f"当前运行的方法块-<{func}>")
                 f = getattr(fetcher, func, None)
                 f()
             except Exception as e:
