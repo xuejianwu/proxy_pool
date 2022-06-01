@@ -17,7 +17,7 @@ __author__ = 'JHao'
 
 import platform, json
 from werkzeug.wrappers import Response
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, abort
 
 from util.six import iteritems
 from util.EnDecrpty import encrypt
@@ -59,9 +59,18 @@ api_list = [
 ]
 
 
-# @app.route('/')
-# def index():
-#     return {'url': api_list}
+def limit_remote_addr():
+    """限制除信任ip地址意外的ip访问"""
+    trustip = [
+        "0.0.0.0",
+        "127.0.0.1",
+        "183.250.89.78"  # xuejw的d网机
+    ]
+
+    if request.remote_addr not in trustip:
+        logout("limitIP", f"<拒绝>来自ip:<{request.remote_addr}>的请求")
+        abort(403)
+    logout("limitIP", f"<通过>来自ip:<{request.remote_addr}>的请求")
 
 
 @app.route('/get/')
@@ -73,6 +82,7 @@ def get():
 
 @app.route('/get2clear/')
 def get2clear():
+    limit_remote_addr()
     https = request.args.get("type", "").lower() == 'https'
     proxy = proxy_handler.get(https)
     return proxy.to_dict if proxy else {"code": 0, "src": "no proxy"}
@@ -93,6 +103,7 @@ def get2clear():
 
 @app.route('/all/')
 def getAll():
+    limit_remote_addr()
     https = request.args.get("type", "").lower() == 'https'
     proxies = proxy_handler.getAll(https)
     return jsonify([_.to_dict for _ in proxies])
@@ -100,6 +111,7 @@ def getAll():
 
 @app.route('/delete/', methods=['GET'])
 def delete():
+    limit_remote_addr()
     proxy = request.args.get('proxy')
 
     logout("proxyApi", f"delete数据模块接收--{proxy}")
@@ -109,6 +121,7 @@ def delete():
 
 @app.route('/count/')
 def getCount():
+    limit_remote_addr()
     status = proxy_handler.getCount()
     return status
 
@@ -116,6 +129,7 @@ def getCount():
 # 请求-开启代理
 @app.route('/proxyStart/')
 def proxy_start():
+    limit_remote_addr()
     # 1.获取可用代理参数
     # 2.启动代理
     # 3.成功后返回pid，IP以及端口号；不成功返回信息
@@ -125,6 +139,7 @@ def proxy_start():
 # 请求-关闭代理
 @app.route('/proxyClose/', methods=['GET'])
 def proxy_close():
+    limit_remote_addr()
     # 1.接收pid参数
     pid = request.args.get('pid')
     # 2.根据pid关闭对应代理进程
@@ -135,6 +150,7 @@ def proxy_close():
 # 查看当前所有代理状态
 @app.route('/proxieslist/')
 def proxieslist():
+    limit_remote_addr()
     # 1.获取可用代理参数
     # 2.启动代理
     # 3.成功后返回pid，IP以及端口号；不成功返回信息
