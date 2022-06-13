@@ -45,7 +45,7 @@ def startProc(proc):
             raise ValueError("参数错误")
     except Exception as e:
         return
-    subprocess.Popen(f"nohup python proxyPool.py {proc}&", bufsize=0, shell=True)
+    subprocess.Popen(f"nohup /root/miniconda3/bin/python /home/xuejw/cache/proxy_pool_linux/proxyPool.py {proc}&", shell=True)
     logout("reStartDaily", f"proxyPool-{proc} 程序启动成功！")
 
 
@@ -53,7 +53,7 @@ def startProc(proc):
 def main(proc):
     killPid(getPid("python", proc))
     startProc(proc)
-    getPid(proc)
+    getPid("python", proc)
 
 
 if __name__ == '__main__':

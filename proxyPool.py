@@ -12,11 +12,15 @@
 """
 __author__ = 'JHao'
 
-import click
+import click, os
 from helper.launcher import startServer, startScheduler2, startRecheck
 from setting import BANNER, VERSION
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
+
+# 在shell中切换路径到该项目地址，用于防止相对路径报错
+script_dir = os.path.dirname(os.path.realpath(__file__))
+os.chdir(script_dir)
 
 
 @click.group(context_settings=CONTEXT_SETTINGS)
