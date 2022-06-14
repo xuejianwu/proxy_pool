@@ -1,7 +1,6 @@
 import re, json, os, subprocess, time, random
-from time import sleep
 from server2user.logout import logout
-from setting import testUrl
+from setting import testUrl, proxyTool_dir
 
 
 def testVmess(ip, port, uuid, alterId, cipher, network, ws_path):
@@ -21,7 +20,7 @@ def testVmess(ip, port, uuid, alterId, cipher, network, ws_path):
         }
 
         # v2ray配置文件
-        conf_dir = "./tools/v2ray-cli-web/config.json"
+        conf_dir = proxyTool_dir + "/tools/v2ray-cli-web/config.json"
 
         # 读取congif
         with open(conf_dir, 'r+', encoding='utf-8') as conf:
@@ -54,7 +53,7 @@ def testVmess(ip, port, uuid, alterId, cipher, network, ws_path):
             conf.write(json.dumps(source, indent=4, ensure_ascii=False))
 
         # 启动进程
-        proc_vmess_test = subprocess.Popen("./tools/v2ray-cli-web/v2ray")
+        proc_vmess_test = subprocess.Popen(proxyTool_dir + "/tools/v2ray-cli-web/v2ray")
         time.sleep(3)
 
         # 测试可用性
@@ -108,7 +107,7 @@ def testVmess2(ip, port, uuid, alterId, cipher, network, ws_path):
         }
 
         # v2ray配置文件
-        conf_dir = "./tools/v2ray-cli/config.json"
+        conf_dir = proxyTool_dir + "/tools/v2ray-cli/config.json"
 
         # 读取congif
         with open(conf_dir, 'r+', encoding='utf-8') as conf:
@@ -141,7 +140,7 @@ def testVmess2(ip, port, uuid, alterId, cipher, network, ws_path):
             conf.write(json.dumps(source, indent=4, ensure_ascii=False))
 
         # 启动进程
-        proc_vmess_test = subprocess.Popen("./tools/v2ray-cli/v2ray")
+        proc_vmess_test = subprocess.Popen(proxyTool_dir + "/tools/v2ray-cli/v2ray")
         time.sleep(3)
 
         # 测试可用性
@@ -249,7 +248,7 @@ def backup_testVmess(ip, port, uuid, alterId, cipher, network, ws_path):
         }
 
         # v2ray配置文件
-        conf_dir = "./tools/v2ray-cli/config.json"
+        conf_dir = proxyTool_dir + "/tools/v2ray-cli/config.json"
 
         # 读取congif
         with open(conf_dir, 'r+', encoding='utf-8') as conf:
@@ -282,7 +281,7 @@ def backup_testVmess(ip, port, uuid, alterId, cipher, network, ws_path):
             conf.write(json.dumps(source, indent=4, ensure_ascii=False))
 
         # 启动进程
-        proc_vmess_test = subprocess.Popen("./tools/v2ray-cli/v2ray")
+        proc_vmess_test = subprocess.Popen(proxyTool_dir + "/tools/v2ray-cli/v2ray")
         time.sleep(3)
 
         # 测试可用性

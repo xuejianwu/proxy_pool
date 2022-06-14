@@ -1,6 +1,6 @@
 import json, subprocess, time, random
 from server2user.logout import logout
-from setting import testUrl
+from setting import testUrl, proxyTool_dir
 
 
 def get_request_headers():
@@ -71,8 +71,7 @@ def testSs(ip, port, password, cipher):
         }
 
         # ss配置文件
-        # conf_dir = "./tools/Shadowsocks-4.1/gui-config.json"
-        conf_dir = "./tools/Shadowsocks-web/shadowsocks.json"
+        conf_dir = proxyTool_dir + "/tools/Shadowsocks-web/shadowsocks.json"
 
         # 读取congif
         with open(conf_dir, 'r+', encoding='utf-8') as conf:
@@ -89,7 +88,8 @@ def testSs(ip, port, password, cipher):
             conf.write(json.dumps(source, indent=4, ensure_ascii=False))
 
         # 启动进程
-        proc_vmess_test = subprocess.Popen("sslocal -c ./tools/Shadowsocks-web/shadowsocks.json".split(" "))
+        inst = "sslocal -c " + proxyTool_dir + "/tools/Shadowsocks-web/shadowsocks.json"
+        proc_vmess_test = subprocess.Popen(inst.split(" "))
         time.sleep(3)
 
         # 测试可用性
@@ -141,8 +141,7 @@ def testSs2(ip, port, password, cipher):
         }
 
         # ss配置文件
-        # conf_dir = "./tools/Shadowsocks-4.1/gui-config.json"
-        conf_dir = "./tools/Shadowsocks/shadowsocks.json"
+        conf_dir = proxyTool_dir + "/tools/Shadowsocks/shadowsocks.json"
 
         # 读取congif
         with open(conf_dir, 'r+', encoding='utf-8') as conf:
@@ -159,7 +158,8 @@ def testSs2(ip, port, password, cipher):
             conf.write(json.dumps(source, indent=4, ensure_ascii=False))
 
         # 启动进程
-        proc_vmess_test = subprocess.Popen("sslocal -c ./tools/Shadowsocks/shadowsocks.json".split(" "))
+        inst = "sslocal -c " + proxyTool_dir + "/tools/Shadowsocks/shadowsocks.json"
+        proc_vmess_test = subprocess.Popen(inst.split(" "))
         time.sleep(6)
 
         # 测试可用性

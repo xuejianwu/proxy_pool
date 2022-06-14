@@ -100,14 +100,14 @@ TIMEZONE = "Asia/Shanghai"
 
 # ############# 其他补充 #################
 
-poolUrl = "http://127.0.0.1:50101/all"
-deleteUrl = "http://127.0.0.1:50101/delete"
 # 测试代理是否可用的url
-#    'https://zh.m.wikipedia.org/',
-#    'https://www.kakaocorp.com/page/',
 testUrl = [
     'https://www.twitter.com/',
     'https://www.tumblr.com/',
     'https://www.facebook.com/',
     'https://www.google.com/',
 ]
+
+# 代理相关配置文件
+proxyTool_dir = "/home/xuejw/cache/proxy_pool_linux"
+workDir = "/home/xuejw/cache/proxy_pool_linux"

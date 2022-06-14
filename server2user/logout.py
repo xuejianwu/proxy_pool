@@ -3,6 +3,7 @@ import uuid
 import logging
 from logging import handlers
 import os, sys
+from setting import workDir
 
 
 # 日志模块
@@ -13,10 +14,10 @@ def logout(logName, *args):
 
     try:
         # log文件
-        save_path = os.getcwd() # 获取当前工作路径
-        print(save_path)
-        os.makedirs(save_path, exist_ok=True)
-        log_file = '{}/log/{}-{}.log'.format(save_path, logName, dt.strftime('%Y-%m-%d'))
+        # save_path = os.getcwd() # 获取当前工作路径
+        # print(save_path)
+        # os.makedirs(save_path, exist_ok=True)
+        log_file = workDir + '/log/{}-{}.log'.format(logName, dt.strftime('%Y-%m-%d'))
 
         logger = logging.getLogger('Debug{}'.format(uuid.uuid1()))
         logger.setLevel(logging.DEBUG)

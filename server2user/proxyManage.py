@@ -1,7 +1,5 @@
 import requests, json, time, subprocess, random
-from fetcher.testVmess import testVmess
-from fetcher.testSs import testSs
-from setting import testUrl
+from setting import testUrl, proxyTool_dir
 from server2user.logout import logout
 
 
@@ -33,7 +31,7 @@ class ProxyManager:
             }
 
             # v2ray配置文件
-            conf_dir = "./tools/v2ray-cli/config.json"
+            conf_dir = proxyTool_dir + "/tools/v2ray-cli/config.json"
 
             # 读取congif
             with open(conf_dir, 'r+', encoding='utf-8') as conf:
@@ -66,7 +64,7 @@ class ProxyManager:
                 conf.write(json.dumps(source, indent=4, ensure_ascii=False))
 
             # 启动进程
-            proc_vmess_test = subprocess.Popen("./tools/v2ray-cli/v2ray")
+            proc_vmess_test = subprocess.Popen(proxyTool_dir + "/tools/v2ray-cli/v2ray")
             pid = proc_vmess_test.pid
             time.sleep(3)
 
@@ -122,7 +120,7 @@ class ProxyManager:
             }
 
             # v2ray配置文件
-            conf_dir = "./tools/Shadowsocks/shadowsocks.json"
+            conf_dir = proxyTool_dir + "/tools/Shadowsocks/shadowsocks.json"
 
             # 读取congif
             with open(conf_dir, 'r+', encoding='utf-8') as conf:
@@ -139,7 +137,8 @@ class ProxyManager:
                 conf.write(json.dumps(source, indent=4, ensure_ascii=False))
 
             # 启动进程
-            proc_ss_test = subprocess.Popen("sslocal -c ./tools/Shadowsocks/shadowsocks.json".split(" "))
+            inst = "sslocal -c " + proxyTool_dir + "/tools/Shadowsocks/shadowsocks.json"
+            proc_ss_test = subprocess.Popen(inst.split(" "))
             pid = proc_ss_test.pid
             time.sleep(3)
 
