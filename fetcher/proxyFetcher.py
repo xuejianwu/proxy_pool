@@ -72,7 +72,7 @@ class ProxyFetcher(object):
                         continue
 
                 except Exception as e:
-                    logout("proxyFetcher", f"--error-当前代理归属地为-<CN>-跳过--")
+                    # logout("proxyFetcher", f"--error-当前代理归属地为-<CN>-跳过--")
                     pass
 
                 # 代理过滤1:只获取Vmess代理

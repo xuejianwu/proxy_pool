@@ -5,6 +5,13 @@ import hmac
 import hashlib
 import base64
 import urllib.parse
+import click
+
+
+@click.group()
+@click.version_option()
+def cli():
+    """My Cli"""
 
 
 def get_sign():
@@ -34,7 +41,7 @@ def send_dingding_message(message):
         "msgtype": "markdown",
         "markdown":
             {
-                "title": "测试ing",
+                "title": "通知来自小尧代理",
                 "text": message
             },
         "at": {
@@ -51,10 +58,43 @@ def send_dingding_message(message):
 
 
 def get_proxylist():
-    res = requests.get("http://117.25.130.72:50101/count/")
-    print(res.text)
+    # 当前可用
+    url1 = "http://127.0.0.1:50101/proxieslist"
+    # 库里所有
+    url2 = "http://127.0.0.1:50101/count"
+
+    res1 = requests.get(url1).text  # usingTable-0-{}
+                                    # validTable-id-140335087807936-8-['{"server": "cdn-cn.nekocloud.cn", "port": "19079", "uuid": "76cb50a4-9fd8-352e-99f4-a7bb5959b07b", "alterId": "0", "cipher": "auto", "network": "ws", "ws-path": "/dahjwuh", "protocol": "vmess"}', '{"server": "51.81.223.32", "port": "443", "uuid": "c0156451-4efb-45e2-84fc-8d315c4650db", "alterId": "32", "cipher": "auto", "network": "tcp", "ws-path": "/", "protocol": "vmess"}', '{"server": "51.81.223.10", "port": "443", "uuid": "c0156451-4efb-45e2-84fc-8d315c4650db", "alterId": "32", "cipher": "auto", "network": "tcp", "ws-path": "/", "protocol": "vmess"}', '{"server": "51.81.223.20", "port": "443", "uuid": "c0156451-4efb-45e2-84fc-8d315c4650db", "alterId": "32", "cipher": "auto", "network": "tcp", "ws-path": "/", "protocol": "vmess", "listenport": 33454}', '{"server": "51.81.223.29", "port": "443", "uuid": "c0156451-4efb-45e2-84fc-8d315c4650db", "alterId": "32", "cipher": "auto", "network": "tcp", "ws-path": "/", "protocol": "vmess", "listenport": 42739}', '{"server": "cdn-cn.nekocloud.cn", "port": "19047", "uuid": "76cb50a4-9fd8-352e-99f4-a7bb5959b07b", "alterId": "0", "cipher": "auto", "network": "ws", "ws-path": "/dahjwuh", "protocol": "vmess"}', '{"server": "51.81.223.17", "port": "443", "uuid": "c0156451-4efb-45e2-84fc-8d315c4650db", "alterId": "32", "cipher": "auto", "network": "tcp", "ws-path": "/", "protocol": "vmess"}', '{"server": "cdn-cn.nekocloud.cn", "port": "19049", "uuid": "76cb50a4-9fd8-352e-99f4-a7bb5959b07b", "alterId": "0", "cipher": "auto", "network": "ws", "ws-path": "/dahjwuh", "protocol": "vmess"}']
+                                    # unvalidTable-id-140335088231360-0-[]
+                                    # listenportTable-0-[]
+    res2 = requests.get(url2).text  # {"count":{"https":0,"total":4}}
+
+    res1 = res1.split("\n")
+    using = res1[0].split("-")[1]
+    used = res1[1].split("-")[3]
+    datebase = json.loads(res2)["count"]["total"]
+
+    return int(using), int(used), int(datebase)
+
+
+@cli.command(name="Hour")
+def checkByHour():
+    using, used, datebase = get_proxylist()
+    if using+used < 30:
+        message = f"<!代理预警!> -当前可用代理数量为：<{using+used}>,数量库代理数量为：<{datebase}>"
+        send_dingding_message(message)
+
+
+@cli.command(name="Day")
+def checkByDay():
+    using, used, datebase = get_proxylist()
+    if using+used < 30:
+        message = f"<代理信息播报> -当前可用代理数量为：<{using+used}>,数量库代理数量为：<{datebase}>"
+        send_dingding_message(message)
+    else:
+        message = f"<代理信息播报> -当前可用代理数量为：<{using + used}>,数量库代理数量为：<{datebase}>"
+        send_dingding_message(message)
 
 
 if __name__ == "__main__":
-    # send_dingding_message("大家好")
-    get_proxylist()
+    cli()
