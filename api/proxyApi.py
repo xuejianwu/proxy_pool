@@ -147,6 +147,16 @@ def proxy_close():
     return proxyMain.closeproxy(pid)
 
 
+# 请求-情况当前在使用的所有代理
+@app.route('/proxyClear/', methods=['GET'])
+def proxyClear():
+    limit_remote_addr()
+    # 1.接收pid参数
+    # 2.根据pid关闭对应代理进程
+    # *3.返回结果
+    return proxyMain.closeAll()
+
+
 # 查看当前所有代理状态
 @app.route('/proxieslist/')
 def proxieslist():

@@ -140,6 +140,49 @@ class ProxyMain:
             logout("proxyMain", f"closeproxy模块报错---{e}---")
             return f"ERROR-对应pid-{str(pid)}-的代理关闭失败"
 
+    def closeAll(self):
+        """
+        关闭所有代理进程
+        :return:
+        """
+        # 从redis里取数据
+        using = self.db.dict_getall("using")
+
+        try:
+            for key in using:  # 遍历的是键
+                pid = key
+                _proxy = using[str(pid)]
+                proxy = json.loads(_proxy)  # 将str转dict
+
+                # 判断是否在使用列表中查找到对应pid的代理信息
+                if proxy is None:
+                    logout("proxyMain", f"closeAll模块报错---未在使用列表中查找到对应pid-{str(pid)}-的代理---")
+                    continue
+
+                logout("proxyMain", f"closeAll模块---找到对应pid-{str(pid)}-的代理信息{proxy}---")
+
+                # 根据代理信息关闭进程
+                listenport = proxy['listenport']
+
+                if self.PM.closeproxy(pid):
+                    del_dict = {pid: proxy}
+                    logout("proxyMain", f"临时测试-{del_dict}")
+
+                    # using.remove(del_dict)
+                    self.db.dict_del("using", pid)
+
+                    # valid.append(proxy)
+                    self.db.list_add("valid", proxy)
+
+                    # lsportList.remove(listenport)
+                    self.db.list_del("lsport", listenport)
+
+                    continue
+
+        except Exception as e:
+            logout("proxyMain", f"closeproxy模块报错---{e}---")
+            return f"ERROR-对应pid-{str(pid)}-的代理关闭失败"
+
     def recheck(self):
         """
         定时检查代理可用性
