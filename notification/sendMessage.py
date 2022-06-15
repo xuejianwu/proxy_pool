@@ -6,6 +6,9 @@ import hashlib
 import base64
 import urllib.parse
 import click
+import sys
+sys.path.append("..")
+from server2user import logout
 
 
 @click.group()
@@ -47,7 +50,8 @@ def send_dingding_message(message):
         "at": {
             "atMobiles": [
                 "15606004194"
-            ]
+            ],
+            "isAtAll": 0
         }
     }
 
@@ -80,19 +84,30 @@ def get_proxylist():
 @cli.command(name="Hour")
 def checkByHour():
     using, used, datebase = get_proxylist()
-    if using+used < 30:
-        message = f"<!代理预警!> -当前可用代理数量为：<{using+used}>,数量库代理数量为：<{datebase}>"
+    if using+used == 0:
+        message = f"【yao2代理预警】-当前无可用代理@15606004194"
+        logout.logout("dding", message)
+        send_dingding_message(message)
+    elif using+used < 50:
+        message = f"【yao2代理预警】-当前可用代理数量为：<{using+used}>@15606004194"
+        logout.logout("dding", message)
+        send_dingding_message(message)
+    else:
+        message = f"【yao2代理预警】-当前可用代理数量为：<{using + used}>"
+        logout.logout("dding", message)
         send_dingding_message(message)
 
 
 @cli.command(name="Day")
 def checkByDay():
     using, used, datebase = get_proxylist()
-    if using+used < 30:
-        message = f"<代理信息播报> -当前可用代理数量为：<{using+used}>,数量库代理数量为：<{datebase}>"
+    if using+used < 50:
+        message = f"【yao2代理信息播报】-当前可用代理数量为：<{using+used}>@15606004194"
+        logout.logout("dding", message)
         send_dingding_message(message)
     else:
-        message = f"<代理信息播报> -当前可用代理数量为：<{using + used}>,数量库代理数量为：<{datebase}>"
+        message = f"【yao2代理信息播报】-当前可用代理数量为：<{using + used}>"
+        logout.logout("dding", message)
         send_dingding_message(message)
 
 

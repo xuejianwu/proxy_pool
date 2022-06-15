@@ -28,7 +28,7 @@ def telnet(host, port)->bool:
     """
     import telnetlib
     try:
-        tel = telnetlib.Telnet(str(host), port=int(port), timeout=4)
+        tel = telnetlib.Telnet(str(host), port=int(port), timeout=2)
         logout("proxyFetcher", f"telnet--{str(host)}:{str(port)}-- connecting pass ...")
         tel.close()
         return True
