@@ -43,6 +43,29 @@ def send_dingding_message(message):
         "text":
             {
                 "content": message
+            }
+        }
+
+    String_textMsg = json.dumps(String_textMsg)
+    res = requests.post(url, data=String_textMsg, headers=HEADERS)
+    print(res.text)
+    return res.text
+
+
+def send_dingding_message_at(message):
+    """通过钉钉机器人发送预警消息+@"""
+
+    timestamp, sign = get_sign()
+
+    url = f"https://oapi.dingtalk.com/robot/send?access_token=1c2e1597d755aeffc941e9087de6f8f7896cb8a0ca64a659209ccdb4656f68c7&timestamp={timestamp}&sign={sign}"
+    HEADERS = {
+        "Content-Type": "application/json;charset=utf-8"
+    }
+    String_textMsg = {
+        "msgtype": "text",
+        "text":
+            {
+                "content": message
             },
         "at": {
             "atMobiles": ["15606004194"],
@@ -81,11 +104,11 @@ def checkByHour():
     if using+used == 0:
         message = f"【yao2代理预警】-当前无可用代理"
         logout.logout("dding", message)
-        send_dingding_message(message)
+        send_dingding_message_at(message)
     elif using+used < 50:
         message = f"【yao2代理预警】-当前可用代理数量为：<{using+used}>"
         logout.logout("dding", message)
-        send_dingding_message(message)
+        send_dingding_message_at(message)
     else:
         message = f"【yao2代理预警】-当前可用代理数量为：<{using + used}>"
         logout.logout("dding", message)
