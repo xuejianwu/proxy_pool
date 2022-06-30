@@ -228,10 +228,16 @@ class ProxyRecheck():
         # 从redis里取数据
         unvalid = self.db.list_get("unvalid")
 
+        # 从redis里读取未删除前的数据库数据
+        proxies = self.dbOperate.getAll()
+        res = [_.to_json for _ in proxies]
+
         logout("proxyRecheck", "\n")
         logout("proxyRecheck", "="*30)
         logout("proxyRecheck", f"输入unvalid个数:{len(unvalid)}")
         logout("proxyRecheck", f"输入unvalid:{unvalid}")
+        logout("proxyRecheck", f"输入原始数据库最新数据个数:{len(res)}")
+        logout("proxyRecheck", f"输入原始数据库最新数据:{res}")
 
         temp = []  # 待删除列表
 
@@ -305,10 +311,17 @@ class ProxyRecheck():
             print(f"{del_flag}--{delproxy}")
 
         # 返回处理后的结果
+
+        # 从redis里读取未删除前的数据库数据
+        proxies = self.dbOperate.getAll()
+        res = [_.to_json for _ in proxies]
+
         unvalid = self.db.list_get("unvalid")
         logout("proxyRecheck", "移除不可用代理完成")
         logout("proxyRecheck", f"输出unvalid个数:{len(unvalid)}")
         logout("proxyRecheck", f"输出unvalid:{unvalid}")
+        logout("proxyRecheck", f"输出原始数据库最新数据个数:{len(res)}")
+        logout("proxyRecheck", f"输出原始数据库最新数据:{res}")
         logout("proxyRecheck", "=" * 30)
 
     def run(self):
